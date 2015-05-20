@@ -1,57 +1,62 @@
-var gulp = require('gulp')
-  , gutil = require('gulp-util')
-  , del = require('del')
-  , concat = require('gulp-concat')
-  , rename = require('gulp-rename')
-  , minifycss = require('gulp-minify-css')
-  , minifyhtml = require('gulp-minify-html')
-  , processhtml = require('gulp-processhtml')
-  , jshint = require('gulp-jshint')
-  , uglify = require('gulp-uglify')
-  , connect = require('gulp-connect')
-  , paths;
+var gulp = require('gulp'),
+  gutil = require('gulp-util'),
+  del = require('del'),
+  concat = require('gulp-concat'),
+  rename = require('gulp-rename'),
+  minifycss = require('gulp-minify-css'),
+  minifyhtml = require('gulp-minify-html'),
+  processhtml = require('gulp-processhtml'),
+  jshint = require('gulp-jshint'),
+  uglify = require('gulp-uglify'),
+  connect = require('gulp-connect'),
+  ghPages = require('gulp-gh-pages'),
+  paths;
 
 paths = {
-  assets: 'src/assets/**/*',
-  css:    'src/css/*.css',
-  libs:   [
+  assets: ['src/assets/**/*'],
+  css: 'src/css/*.css',
+  libs: [
     'src/bower_components/phaser-official/build/phaser.min.js'
   ],
-  js:     ['src/js/**/*.js'],
-  dist:   './dist/'
+  js: ['src/js/**/*.js'],
+  dist: './dist/'
 };
 
-gulp.task('clean', function (cb) {
+gulp.task('clean', function(cb) {
   del([paths.dist], cb);
 });
 
-gulp.task('copy-assets', ['clean'], function () {
+gulp.task('copy-assets', ['clean'], function() {
   gulp.src(paths.assets)
     .pipe(gulp.dest(paths.dist + 'assets'))
     .on('error', gutil.log);
 });
 
-gulp.task('copy-vendor', ['clean'], function () {
+gulp.task('copy-vendor', ['clean'], function() {
   gulp.src(paths.libs)
     .pipe(gulp.dest(paths.dist))
     .on('error', gutil.log);
 });
 
-gulp.task('uglify', ['clean','lint'], function () {
+gulp.task('uglify', ['clean', 'lint'], function() {
   gulp.src(paths.js)
     .pipe(concat('main.min.js'))
     .pipe(gulp.dest(paths.dist))
-    .pipe(uglify({outSourceMaps: false}))
+    .pipe(uglify({
+      outSourceMaps: false
+    }))
     .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('minifycss', ['clean'], function () {
- gulp.src(paths.css)
+gulp.task('minifycss', ['clean'], function() {
+  gulp.src(paths.css)
     .pipe(minifycss({
       keepSpecialComments: false,
       removeEmpty: true
     }))
-    .pipe(rename({suffix: '.min'}))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(gulp.dest(paths.dist))
     .on('error', gutil.log);
 });
@@ -77,24 +82,30 @@ gulp.task('lint', function() {
     .on('error', gutil.log);
 });
 
-gulp.task('html', function(){
+gulp.task('html', function() {
   gulp.src('src/*.html')
     .pipe(connect.reload())
     .on('error', gutil.log);
 });
 
-gulp.task('connect', function () {
+gulp.task('connect', function() {
   connect.server({
     root: [__dirname + '/src'],
-    port: 9000,
+    port: 3000,
     livereload: true
   });
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
   gulp.watch(paths.js, ['lint']);
   gulp.watch(['./src/index.html', paths.css, paths.js], ['html']);
 });
 
+gulp.task('gh-pages', function() {
+  return gulp.src('dist/**/*')
+    .pipe(ghPages());
+});
+
 gulp.task('default', ['connect', 'watch']);
 gulp.task('build', ['copy-assets', 'copy-vendor', 'uglify', 'minifycss', 'processhtml', 'minifyhtml']);
+gulp.task('deploy', ['build', 'gh-pages']);

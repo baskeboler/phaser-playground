@@ -21,8 +21,8 @@
       this.load.image('cobbletexture', 'assets/cobbletexture.png');
       this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
 
-      this.load.script('marble', 'bower_components/phaser-official/filters/Tunnel.js');
-      this.load.script('lightbeam', 'bower_components/phaser-official/filters/LightBeam.js');
+      this.load.script('marble', 'assets/filters/Tunnel.js');
+      this.load.script('lightbeam', 'assets/filters/LightBeam.js');
       this.load.audio('kiss', 'assets/kiss.mp3', true);
     },
 
