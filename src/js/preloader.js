@@ -19,10 +19,14 @@
     loadResources: function() {
       this.load.image('player', 'assets/player.png');
       this.load.image('cobbletexture', 'assets/cobbletexture.png');
+      this.load.image('minigun', 'assets/minigun.png');
+      this.load.image('bullet', 'assets/bullet.png');
       this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
 
       this.load.script('marble', 'assets/filters/Tunnel.js');
       this.load.script('lightbeam', 'assets/filters/LightBeam.js');
+      this.load.script('lazerbeam', 'assets/filters/LazerBeam.js');
+      this.load.script('colorbars', 'assets/filters/ColorBars.js');
       this.load.audio('kiss', 'assets/kiss.mp3', true);
     },
 
