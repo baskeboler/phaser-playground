@@ -101,11 +101,10 @@ gulp.task('watch', function() {
   gulp.watch(['./src/index.html', paths.css, paths.js], ['html']);
 });
 
-gulp.task('gh-pages', function() {
+gulp.task('deploy', function() {
   return gulp.src('dist/**/*')
     .pipe(ghPages());
 });
 
 gulp.task('default', ['connect', 'watch']);
 gulp.task('build', ['copy-assets', 'copy-vendor', 'uglify', 'minifycss', 'processhtml', 'minifyhtml']);
-gulp.task('deploy', ['build', 'gh-pages']);
