@@ -22,6 +22,7 @@
       this.load.image('minigun', 'assets/minigun.png');
       this.load.image('bullet', 'assets/bullet.png');
       this.load.bitmapFont('minecraftia', 'assets/minecraftia.png', 'assets/minecraftia.xml');
+      this.load.spritesheet('explosion', 'assets/explosion.png', 128, 128, 49);
 
       this.load.script('marble', 'assets/filters/Tunnel.js');
       this.load.script('lightbeam', 'assets/filters/LightBeam.js');

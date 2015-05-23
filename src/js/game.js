@@ -56,8 +56,12 @@
 
       this.player = this.add.sprite(x, y, 'player');
       this.player.anchor.setTo(0.5, 0.5);
-      this.input.onDown.add(this.onInputDown, this);
+      this.player.enableBody = true;
+      this.player.physicsBodyType = Phaser.Physics.ARCADE;
+      this.physics.enable(this.player, Phaser.Physics.ARCADE);
 
+
+      this.input.onDown.add(this.onInputDown, this);
       this.fKey = this.input.keyboard.addKey(Phaser.Keyboard.F);
       this.fKey.onDown.add(this.toggleFullscreen, this, 0);
 
@@ -124,6 +128,17 @@
       var x, y, cx, cy, dx, dy, angle, scale;
       this.filter.update();
       this.updateMinigun();
+      this.physics.arcade.overlap( this.player, this.bullets, function( player, bullet) {
+        var ex = bullet.game.add.sprite(bullet.x, bullet.y, 'explosion');
+        ex.anchor.setTo(0.5);
+        var boomAnimacion = ex.animations.add('boom');
+        boomAnimacion.onComplete.add( function() {
+          boomAnimacion.destroy();
+          ex.kill();
+        });
+        boomAnimacion.play( 30, false);
+        bullet.kill();
+      });
       x = this.input.position.x;
       y = this.input.position.y;
       cx = this.world.centerX;
