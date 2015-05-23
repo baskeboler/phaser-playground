@@ -13,6 +13,7 @@
     this.minigun = null;
     this.bullets = null;
     this.bulletTime = 0;
+    this.score = 0;
   }
 
   Game.prototype = {
@@ -85,6 +86,7 @@
         b.checkWorldBounds = true;
         b.events.onOutOfBounds.add(this.resetBullet, this);
       }
+      this.addScore();
     },
     resetBullet: function(bullet) {
       bullet.kill();
@@ -130,7 +132,7 @@
       this.updateMinigun();
       this.physics.arcade.overlap( this.player, this.bullets, function( player, bullet) {
         var ex = bullet.game.add.sprite(bullet.x, bullet.y, 'explosion');
-        ex.anchor.setTo(0.5);
+        ex.anchor.setTo(0, 0.5);
         var boomAnimacion = ex.animations.add('boom');
         boomAnimacion.onComplete.add( function() {
           boomAnimacion.destroy();
@@ -138,7 +140,9 @@
         });
         boomAnimacion.play( 30, false);
         bullet.kill();
-      });
+        this.score += 100;
+        this.scoreText.text = 'Score: ' + this.score;
+      }, null, this);
       x = this.input.position.x;
       y = this.input.position.y;
       cx = this.world.centerX;
@@ -161,6 +165,10 @@
     },
     onInputDown: function() {
       this.game.state.start('menu');
+    },
+    addScore: function() {
+      this.scoreText = this.add.bitmapText(0, 0, 'minecraftia', 'Score: ' + this.score, 16);
+      this.scoreText.anchor.setTo(0,0);
     }
 
   };

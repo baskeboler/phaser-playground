@@ -24,13 +24,22 @@
 
       this.titleTxt = this.add.bitmapText(x, y, 'minecraftia', 'Jueguito de mierda de victor');
       this.titleTxt.align = 'center';
-      this.titleTxt.x = this.game.width / 2 - this.titleTxt.textWidth / 2;
+      this.titleTxt.x = this.game.width / 2 ;
+      this.titleTxt.anchor.setTo(0.5, 0.5);
+      this.rotation = 0.05;
 
       y = y + this.titleTxt.height + 5;
       this.startTxt = this.add.bitmapText(x, y, 'minecraftia', 'START');
       this.startTxt.align = 'center';
-      this.startTxt.x = this.game.width / 2 - this.startTxt.textWidth / 2;
-
+      this.startTxt.anchor.set(0.5);
+      this.startTxt.x = this.game.width / 2;
+      this.startTxt.tint = 0x15E0FF;
+      var t = this.add.tween(this.titleTxt).from({rotation: -0.1}, 500, undefined, false,0, false, true);
+      var t2 = this.add.tween(this.startTxt.scale).from({x: 3}, 1500, 'Elastic', false, 0, false, true);
+      var t3 = this.add.tween(this.titleTxt).from({y: 300}, 1000, 'Elastic', false, 0, false, true);
+      t.start();
+      t2.start();
+      t3.start();
       this.input.onDown.add(this.onDown, this);
 
       this.menuMusic = this.add.audio('kiss');
