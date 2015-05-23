@@ -44,6 +44,7 @@
       this.filterList.push(f);
     },
     create: function() {
+      this.score = 0;
       var x = this.game.width / 2,
         y = this.game.height / 2;
       this.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
@@ -64,6 +65,7 @@
       this.player.enableBody = true;
       this.player.physicsBodyType = Phaser.Physics.ARCADE;
       this.physics.enable(this.player, Phaser.Physics.ARCADE);
+
 
 
       this.input.onDown.add(this.onInputDown, this);
@@ -145,7 +147,17 @@
         });
         boomAnimacion.play( 30, false);
         bullet.kill();
+        var efectoHit = this.add.tween(player).from({alpha: 0.1}, 200);
+        efectoHit.start();
         this.score += 100;
+        if (this.score == 1000) {
+          this.add.tween(player).to({alpha:0}, 4000).start();
+          this.add.tween(player.scale).to({x:100,y:100}, 2000).start();
+
+          this.minigun.anchor.set(0.5);
+          this.add.tween(this.minigun).to({x: this.world.centerX, y:this.world.centerY}, 3000).start();
+          this.add.tween(this.minigun.scale).to({x: 5, y:5}, 3000).start();
+        }
         this.audioExplosion.play();
         this.scoreText.text = 'Score: ' + this.score;
       }, null, this);
