@@ -14,6 +14,8 @@
     this.bullets = null;
     this.bulletTime = 0;
     this.score = 0;
+    this.audioExplosion = null;
+    this.audioLaser = null;
   }
 
   Game.prototype = {
@@ -52,6 +54,8 @@
 
       this.loadFilters();
       this.filter = this.filterList.shift();
+      this.audioExplosion = this.add.audio('audio-explosion');
+      this.audioLaser = this.add.audio('audio-laser');
 
       this.bg.filters = [this.filter];
 
@@ -116,6 +120,7 @@
           //bullet.body.velocity.x = 300;
           this.physics.arcade.velocityFromRotation(bullet.rotation, 120, bullet.body.velocity);
           this.bulletTime = this.time.now + 150;
+          this.audioLaser.play();
         }
       }
     },
@@ -141,6 +146,7 @@
         boomAnimacion.play( 30, false);
         bullet.kill();
         this.score += 100;
+        this.audioExplosion.play();
         this.scoreText.text = 'Score: ' + this.score;
       }, null, this);
       x = this.input.position.x;
