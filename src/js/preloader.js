@@ -28,6 +28,8 @@
       this.load.script('lightbeam', 'assets/filters/LightBeam.js');
       this.load.script('lazerbeam', 'assets/filters/LazerBeam.js');
       this.load.script('colorbars', 'assets/filters/ColorBars.js');
+      this.load.script('checker', 'assets/filters/CheckerWave.js');
+      this.load.script('fire', 'assets/filters/Fire.js');
       this.load.audio('kiss', 'assets/kiss.mp3', true);
       this.load.audio('audio-explosion', 'assets/explosion.wav', true);
       this.load.audio('audio-laser', 'assets/laser.mp3', true);

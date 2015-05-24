@@ -36,10 +36,14 @@
       var f = this.add.filter('LightBeam', this.game.width, this.game.height);
       f.alpha = 0.0;
       this.filterList.push(f);
-      f = this.add.filter('LazerBeam', this.game.width, this.game.height, 0.2);
+      f = this.add.filter('LazerBeam', this.game.width, this.game.height);
       f.alpha = 0.0;
       this.filterList.push(f);
-      f = this.add.filter('ColorBars', this.game.width, this.game.height);
+      
+      f = this.add.filter('Fire', this.game.width, this.game.height);
+      f.alpha = 0.0;
+      this.filterList.push(f);
+      f = this.add.filter('CheckerWave', this.game.width, this.game.height);
       f.alpha = 0.0;
       this.filterList.push(f);
     },
@@ -66,7 +70,7 @@
       this.player.physicsBodyType = Phaser.Physics.ARCADE;
       this.physics.enable(this.player, Phaser.Physics.ARCADE);
 
-
+      this.add.tween(this.player).to({y:100}, 1000).to({x:300}, 1000).to({y:500, x:400}, 1000).loop().start();
 
       this.input.onDown.add(this.onInputDown, this);
       this.fKey = this.input.keyboard.addKey(Phaser.Keyboard.F);
