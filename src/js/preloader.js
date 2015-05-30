@@ -32,7 +32,7 @@
       this.load.script('fire', 'assets/filters/Fire.js');
       this.load.audio('kiss', 'assets/kiss.mp3', true);
       this.load.audio('rod', 'assets/rod.mp3', true);
-      this.load.audio('audio-explosion', 'assets/explosion.wav', true);
+      this.load.audio('audio-explosion', 'assets/explosion.mp3', true);
       this.load.audio('audio-laser', 'assets/laser.mp3', true);
     },
 
