@@ -53,4 +53,4 @@ MenuText.prototype = {
 	},
 	update: function() {},
 	destroy: function() {}
-}
+};
