@@ -2,8 +2,6 @@
   'use strict';
 
   function Menu() {
-    this.titleTxt = null;
-    this.startTxt = null;
     this.bgSprite = null;
     this.menuMusic = null;
     this.tunnelFilter = null;
@@ -12,8 +10,6 @@
   Menu.prototype = {
 
     create: function() {
-      var x = this.game.width / 2,
-        y = this.game.height / 2;
       this.bgSprite = this.add.sprite(0, 0, 'cobbletexture');
       this.bgSprite.width = this.game.width;
       this.bgSprite.height = this.game.height;
@@ -22,24 +18,7 @@
       this.tunnelFilter.origin = 1.0;
       this.bgSprite.filters = [this.tunnelFilter];
 
-      this.titleTxt = this.add.bitmapText(x, y, 'minecraftia', 'Jueguito de mierda de victor');
-      this.titleTxt.align = 'center';
-      this.titleTxt.x = this.game.width / 2 ;
-      this.titleTxt.anchor.setTo(0.5, 0.5);
-      this.rotation = 0.05;
-
-      y = y + this.titleTxt.height + 5;
-      this.startTxt = this.add.bitmapText(x, y, 'minecraftia', 'START');
-      this.startTxt.align = 'center';
-      this.startTxt.anchor.set(0.5);
-      this.startTxt.x = this.game.width / 2;
-      this.startTxt.tint = 0x15E0FF;
-      var t = this.add.tween(this.titleTxt).from({rotation: -0.1}, 500, undefined, false,0, false, true);
-      var t2 = this.add.tween(this.startTxt.scale).from({x: 3}, 1500, 'Elastic', false, 0, false, true);
-      var t3 = this.add.tween(this.titleTxt).from({y: 300}, 1000, 'Elastic', false, 0, false, true);
-      t.start();
-      t2.start();
-      t3.start();
+      this.menuText = new MenuText(this.game);
       this.input.onDown.add(this.onDown, this);
 
       this.menuMusic = this.add.audio('kiss');
